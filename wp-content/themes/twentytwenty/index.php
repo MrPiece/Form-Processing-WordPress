@@ -18,6 +18,19 @@ get_header();
 ?>
 
 <main id="site-content" role="main">
+	<a href="/custom-table" style="padding: 10px;">Check registered clients</a>
+	<form method="POST" action="<?= admin_url('admin-ajax.php?action=process_form') ?>" style="padding: 10px;" id="my-custom-form">
+		<input id="full-name" type="text" name="full-name" placeholder="Your Name">
+		<input id="email" type="email" name="email" placeholder="Your Email">
+		<input id="password" type="password" name="password" placeholder="Your Password">
+		<input id="date" type="date" name="date" id="">
+		<select name="time" id="time" style="width: 100%; height: 60px; padding: 10px">
+			<option value="12:30:00">12:30 PM</option>
+			<option value="13:00:00">1:00 PM</option>
+			<option value="13:30:00">1:30 PM</option>
+		</select>
+		<button type="submit" style="display: block; width: 100%">Submit</button>
+	</form>
 
 	<?php
 

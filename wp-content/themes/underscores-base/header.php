@@ -56,12 +56,5 @@
 			);
 			?>
 		</nav><!-- #site-navigation -->
-
-		<form action="<?= get_template_directory() ?>/forms/home.php">
-			<input type="text" name="full-name" placeholder="Your Name">
-			<input type="email" name="email" placeholder="Your Email">
-			<input type="password" name="password" placeholder="Your Password">
-			<input type="datetime" name="datetime" id="">
-			<button type="submit">Submit</button>
-		</form>
+		
 	</header><!-- #masthead -->

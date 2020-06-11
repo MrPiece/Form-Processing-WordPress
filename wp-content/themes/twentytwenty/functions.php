@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Twenty Twenty functions and definitions
  *
@@ -902,3 +901,44 @@ function register_my_sidebar()
 }
 
 require_once 'widgets/widgets.php';
+
+add_action('wp_footer', 'add_process_form_script');
+function add_process_form_script()
+{
+	wp_enqueue_script(
+		'form-process', 
+		get_template_directory_uri() . 'assets/js/form-process.js', 
+		'jquery', null, true
+	);
+}
+
+add_action('wp_ajax_process_form', 'process_form');
+add_action('wp_ajax_nopriv_process_form', 'process_form');
+function process_form()
+{
+	global $wpdb;
+
+	$fullName = wp_kses($_POST['full-name'], []);
+	$email = wp_kses($_POST['email'], []);
+	$password = password_hash( 
+		wp_kses($_POST['password'], []), PASSWORD_BCRYPT 
+	);
+	$date = wp_kses($_POST['date'], []);
+	$time = wp_kses($_POST['time'], []);
+
+	$appointmentTime = str_replace('/', '-', $date) . ' ' . $time;
+
+	$wpdb->insert(
+		'wp_custom_table',
+		[
+			'full-name' => $fullName, 
+			'email' => $email, 
+			'password' => $password, 
+			'appointment-time' => $appointmentTime
+		],
+		['%s', '%s', '%s', '%s']
+	);
+
+	wp_redirect( home_url() );
+	die;
+}
